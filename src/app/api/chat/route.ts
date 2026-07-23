@@ -79,8 +79,8 @@ export async function POST(request: Request) {
     });
 
     if (!response.ok) {
-      const errText = await response.text();
-      console.error("OpenAI error:", response.status, errText.slice(0, 500));
+      // Do not log response bodies that could contain sensitive upstream details.
+      console.error("OpenAI error:", response.status);
       // Quota/billing issues — still answer from plan data.
       return NextResponse.json({
         answer: answerPlanQuestion(profile, question),
